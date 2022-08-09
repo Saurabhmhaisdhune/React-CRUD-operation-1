@@ -17,17 +17,19 @@ export default function Editdetail() {
         setstudentData({ ...studentData, [e.target.name]: e.target.value});
       };
 
-      useEffect=(() => {
-        if (id)
-        fetch("https://62dc38374438813a26136205.mockapi.io/data/"+id)
-        .then((responce) => responce.json())
-        .then((data) => setstudentData(data));
-        }, [id]);
+        const getdata=()=>{
+        fetch('https://62dc38374438813a26136205.mockapi.io/data/'+id).then((responce)=>responce.json())
+        .then((data)=>{setstudentData(data);console.log(data)});
+        };
+        useEffect(()=>{
+          getdata();
+        },[])
+     
 
       const handleSubmit=()=>{
         if(id){
             axios
-            .put("https://62dc38374438813a26136205.mockapi.io/data/"+id,
+            .put('https://62dc38374438813a26136205.mockapi.io/data/'+id,
               JSON.stringify(studentData),
               {
                 headers: {
